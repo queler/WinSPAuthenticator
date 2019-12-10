@@ -71,8 +71,12 @@ Private Sub IWebAuthenticator_BeforeExecute(ByVal client As WebClient, ByRef req
     End If
     Set originalRq = request
     Set request = originalRq.Clone
-    request.AddCookie rtfa, cookieRtfa
-    request.AddCookie fedAuth, cookieFedAuth
+    If IsEmpty(FindInKeyValues(request.Cookies, rtfa)) Then
+        request.AddCookie rtfa, cookieRtfa
+    End If
+    If IsEmpty(FindInKeyValues(request.Cookies, fedAuth)) Then
+        request.AddCookie fedAuth, cookieFedAuth
+    End If
     
 End Sub
 
